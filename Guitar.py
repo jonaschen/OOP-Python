@@ -36,5 +36,6 @@ class Guitar:
 		print ('serial number: ' + self.serialNumber)
 		print ('price: ' + str(self.price))
 		print ('model: ' + self.model)
-		print ('guitarType: ' + self.guitarType)
+		print ('guitarType: ' + str(self.guitarType))
+		print ('builer:' + str(self.builder))
 

@@ -18,28 +18,26 @@ class Inventory:
 			guitar.showGuitar()
 
 	def search(self, searchGuitar):
+		guitars = []
+
 		for guitar in self.guitars:
 			builder = searchGuitar.getBuilder()
-			if builder and len(builder):
-				if builder != guitar.getBuilder(): continue
+			if builder != guitar.getBuilder(): continue
 
 			model = searchGuitar.getModel()
 			if model and len(model):
-				if model != guitar.getModel(): continue
+				if model.lower() != guitar.getModel().lower(): continue
 
 			gtype = searchGuitar.getType()
-			if gtype and len(gtype):
-				if gtype != guitar.getType(): continue
+			if gtype != guitar.getType(): continue
 
 			backWood = searchGuitar.getBackWood()
-			if backWood and len(backWood):
-				if backWood != guitar.getBackWood(): continue
+			if backWood != guitar.getBackWood(): continue
 
 			topWood = searchGuitar.getTopWood()
-			if topWood and len(topWood):
-				if topWood != guitar.getTopWood(): continue
+			if topWood != guitar.getTopWood(): continue
 
-			return guitar;
+			guitars.append(guitar)
 
-		return None
+		return guitars
 
