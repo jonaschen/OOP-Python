@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 from Guitar import Guitar
+from GuitarSpec import GuitarSpec
 from Inventory import Inventory
 from Builder import Builder
 from Wood import Wood
@@ -36,17 +37,18 @@ if __name__ == '__main__':
 	inventory.displayGuitars()
 
 
-	whatErinLikes = Guitar("", 0, Builder.FENDER, "Stratocastor",
+	whatErinLikes = GuitarSpec(Builder.FENDER, "Stratocastor",
                                       Type.ELECTRIC, Wood.ALDER, Wood.ALDER)
 
 	guitars = inventory.search(whatErinLikes)
 
 	if len(guitars):
 		for guitar in guitars:
+			spec = guitar.getSpec()
 			print ("Erin, you might like this %s %s %s guitar:" %
-				(guitar.getBuilder(), guitar.getModel(), guitar.getType()))
-			print ("\t%s back and sides," % (guitar.getBackWood()))
-			print ("\t%s top." % (guitar.getTopWood()))
+				(spec.getBuilder(), spec.getModel(), spec.getType()))
+			print ("\t%s back and sides," % (spec.getBackWood()))
+			print ("\t%s top." % (spec.getTopWood()))
 			print ("You can have it for only $%s" % (guitar.getPrice()))
 	else:
 		print("Sorry, Erin, we have nothing for you.")

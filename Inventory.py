@@ -1,4 +1,5 @@
 from Guitar import Guitar
+from GuitarSpec import GuitarSpec
 
 
 class Inventory:
@@ -6,7 +7,8 @@ class Inventory:
 		self.guitars = []
 
 	def newGuitar(self, serialNumber='', price=0, builder='', model='', guitarType='', backWood='', topWood=''):
-		guitar = Guitar(serialNumber, price, builder, model, guitarType, backWood, topWood)
+		spec = GuitarSpec(builder, model, guitarType, backWood, topWood)
+		guitar = Guitar(serialNumber, price, spec)
 		self.guitars.append(guitar)
 
 	def addGuitar(self, guitar):
@@ -17,25 +19,26 @@ class Inventory:
 			print ('')
 			guitar.showGuitar()
 
-	def search(self, searchGuitar):
+	def search(self, searchSpec):
 		guitars = []
 
 		for guitar in self.guitars:
-			builder = searchGuitar.getBuilder()
-			if builder != guitar.getBuilder(): continue
+			spec = guitar.getSpec()
+			builder = searchSpec.getBuilder()
+			if builder != spec.getBuilder(): continue
 
-			model = searchGuitar.getModel()
+			model = searchSpec.getModel()
 			if model and len(model):
-				if model.lower() != guitar.getModel().lower(): continue
+				if model.lower() != spec.getModel().lower(): continue
 
-			gtype = searchGuitar.getType()
-			if gtype != guitar.getType(): continue
+			gtype = searchSpec.getType()
+			if gtype != spec.getType(): continue
 
-			backWood = searchGuitar.getBackWood()
-			if backWood != guitar.getBackWood(): continue
+			backWood = searchSpec.getBackWood()
+			if backWood != spec.getBackWood(): continue
 
-			topWood = searchGuitar.getTopWood()
-			if topWood != guitar.getTopWood(): continue
+			topWood = searchSpec.getTopWood()
+			if topWood != spec.getTopWood(): continue
 
 			guitars.append(guitar)
 
