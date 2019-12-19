@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-from Guitar import Guitar
 from GuitarSpec import GuitarSpec
 from Inventory import Inventory
 from Builder import Builder
@@ -37,7 +36,7 @@ def initializeInventory(inventory):
 		meta = testGuitars[serial]
 		price = meta[0]
 		spec = GuitarSpec(meta[1], meta[2], meta[3], meta[4], meta[5], meta[6])
-		inventory.addGuitar(Guitar(serial, price, spec))
+		inventory.addGuitar(serial, price, spec)
 
 
 if __name__ == '__main__':

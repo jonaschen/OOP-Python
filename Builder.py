@@ -12,3 +12,8 @@ class Builder(Enum):
 
 	def __str__(self):
 		return '%s' % (self.value)
+
+
+if __name__ == '__main__':
+	builder = Builder.FENDER
+	print (builder)
