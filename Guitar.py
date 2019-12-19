@@ -18,10 +18,11 @@ class Guitar:
 	def getSpec(self):
 		return self.spec
 
-	def showGuitar(self):
-		print ('serial number: ' + self.serialNumber)
-		print ('price: ' + str(self.price))
-		print ('model: ' + str(self.getSpec().getModel()))
-		print ('guitarType: ' + str(self.getSpec().getType()))
-		print ('builer:' + str(self.getSpec().getBuilder()))
+	def __str__(self):
+		string = 'serial number: %s\n' % (self.serialNumber)
+		string += 'price: %d\n' % (self.price)
+		string += 'model: %s\n' % (self.getSpec().getModel())
+		string += 'guitarType: %s\n' % (self.getSpec().getType())
+		string += 'builer: %s' % (self.getSpec().getBuilder())
+		return string
 

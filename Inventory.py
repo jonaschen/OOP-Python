@@ -11,8 +11,7 @@ class Inventory:
 
 	def displayGuitars(self):
 		for guitar in self.guitars:
-			print ('')
-			guitar.showGuitar()
+			print (guitar)
 
 	def getGuitar(self, serial):
 		for guitar in self.guitars:
