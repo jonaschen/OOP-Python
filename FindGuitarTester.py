@@ -1,10 +1,12 @@
 #!/usr/bin/python3
 
 from GuitarSpec import GuitarSpec
+from MandolinSpec import MandolinSpec
 from Inventory import Inventory
 from Builder import Builder
 from Wood import Wood
 from GuitarType import Type
+from Style import Style
 
 def initializeInventory(inventory):
 	testGuitars = {
@@ -32,23 +34,36 @@ def initializeInventory(inventory):
 				Type.ELECTRIC, Wood.MAHOGANY, Wood.MAPLE, 6)
 	}
 
+	testMandolins = {
+		"MT8552-A": (8939.95, Builder.RYAN, "Cathedral",
+				Type.ACOUSTIC, Wood.COCOBOLO, Wood.CEDAR, Style.A),
+		"MT8552-F": (2130.95, Builder.PRS, "Dave Navarro Signature",
+				Type.ELECTRIC, Wood.MAHOGANY, Wood.MAPLE, Style.F)
+	}
+
 	for serial in testGuitars:
 		meta = testGuitars[serial]
 		price = meta[0]
 		spec = GuitarSpec(meta[1], meta[2], meta[3], meta[4], meta[5], meta[6])
-		inventory.addGuitar(serial, price, spec)
+		inventory.addInstrument(serial, price, spec)
+
+	for serial in testMandolins:
+		meta = testMandolins[serial]
+		price = meta[0]
+		spec = MandolinSpec(meta[1], meta[2], meta[3], meta[4], meta[5], meta[6])
+		inventory.addInstrument(serial, price, spec)
 
 
 if __name__ == '__main__':
 	inventory = Inventory()
 	initializeInventory(inventory)
-	inventory.displayGuitars()
+	inventory.displayInstruments()
 
 
 	whatErinLikes = GuitarSpec(Builder.FENDER, "Stratocastor",
                                       Type.ELECTRIC, Wood.ALDER, Wood.ALDER, 6)
 
-	guitars = inventory.search(whatErinLikes)
+	guitars = inventory.searchGuitar(whatErinLikes)
 
 	if len(guitars):
 		for guitar in guitars:

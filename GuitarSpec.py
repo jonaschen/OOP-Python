@@ -1,44 +1,24 @@
-class GuitarSpec:
+from InstrumentSpec import InstrumentSpec
+
+class GuitarSpec(InstrumentSpec):
 	def __init__(self, builder, model, guitarType, backWood, topWood, numStrings):
-		self.builder = builder
-		self.model = model
-		self.guitarType = guitarType
-		self.backWood = backWood
-		self.topWood = topWood
+		super().__init__(builder, model, guitarType, backWood, topWood)
 		self.numStrings = numStrings
 
 	def __eq__(self, other):
-		if self.getBuilder() != other.getBuilder():
+		if not super().__eq__(other):
 			return False
 
-		if self.getModel().lower() != other.getModel().lower():
-			return False
-
-		if self.getType() != other.getType():
-			return False
-
-		if self.getBackWood() != other.getBackWood():
-			return False
-
-		if self.getTopWood() != other.getTopWood():
+		if self.getNumStrings() != other.getNumStrings():
 			return False
 
 		return True
 
-	def getBuilder(self):
-		return self.builder
-
-	def getModel(self):
-		return self.model
-
-	def getType(self):
-		return self.guitarType
-
-	def getBackWood(self):
-		return self.backWood
-
-	def getTopWood(self):
-		return self.topWood
-
 	def getNumStrings(self):
 		return self.numStrings
+
+	def __str__(self):
+		string = "GuitarSpec:\n"
+		string += super().__str__()
+		string += 'Number of Strings: %s' % (self.getNumStrings())
+		return string
