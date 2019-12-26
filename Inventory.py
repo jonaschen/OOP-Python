@@ -1,8 +1,7 @@
-from Guitar import Guitar
 from GuitarSpec import GuitarSpec
-from Mandolin import Mandolin
 from MandolinSpec import MandolinSpec
-
+from Instrument import Instrument
+from InstrumentType import InstrumentType
 
 class Inventory:
 	def __init__(self):
@@ -10,9 +9,9 @@ class Inventory:
 
 	def addInstrument(self, serial, price, spec):
 		if isinstance(spec, GuitarSpec):
-			self.inventory.append(Guitar(serial, price, spec))
+			self.inventory.append(Instrument(InstrumentType.GUITAR, serial, price, spec))
 		elif isinstance(spec, MandolinSpec):
-			self.inventory.append(Mandolin(serial, price, spec))
+			self.inventory.append(Instrument(InstrumentType.MANDOLIN, serial, price, spec))
 
 	def displayInstruments(self):
 		for instrument in self.inventory:
@@ -24,22 +23,13 @@ class Inventory:
 			if instrument.getSerialNumber() == serial:
 				return instrument
 
-	def searchGuitar(self, searchSpec):
-		guitars = []
+	def search(self, searchSpec):
+		instruments = []
 
 		for instrument in self.inventory:
 			spec = instrument.getSpec()
-			if isinstance(spec, GuitarSpec) and spec == searchSpec:
-				guitars.append(instrument)
+			if spec == searchSpec:
+				instruments.append(instrument)
 
-		return guitars
+		return instruments
 
-	def searchMandolin(self, searchSpec):
-		mandolin = []
-
-		for instrument in self.inventory:
-			spec = instrument.getSpec()
-			if isinstance(spec, MandolinSpec) and spec == searchSpec:
-				mandolin.append(instrument)
-
-		return guitars

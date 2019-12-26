@@ -6,6 +6,8 @@ class GuitarSpec(InstrumentSpec):
 		self.numStrings = numStrings
 
 	def __eq__(self, other):
+		if not isinstance(other, GuitarSpec):
+			return False
 		if not super().__eq__(other):
 			return False
 

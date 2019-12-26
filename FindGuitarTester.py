@@ -59,19 +59,29 @@ if __name__ == '__main__':
 	initializeInventory(inventory)
 	inventory.displayInstruments()
 
+	whatErinLikes = []
+	whatErinLikes.append( GuitarSpec(Builder.FENDER, "Stratocastor",
+                                      Type.ELECTRIC, Wood.ALDER, Wood.ALDER, 6) )
+	whatErinLikes.append( MandolinSpec(Builder.RYAN, "Cathedral",
+                                      Type.ACOUSTIC, Wood.COCOBOLO, Wood.CEDAR, Style.A) )
 
-	whatErinLikes = GuitarSpec(Builder.FENDER, "Stratocastor",
-                                      Type.ELECTRIC, Wood.ALDER, Wood.ALDER, 6)
+	instruments = []
+	for spec in whatErinLikes:
+		instruments += inventory.search(spec)
 
-	guitars = inventory.searchGuitar(whatErinLikes)
-
-	if len(guitars):
-		for guitar in guitars:
-			spec = guitar.getSpec()
-			print ("Erin, you might like this %s %s %s guitar:" %
-				(spec.getBuilder(), spec.getModel(), spec.getType()))
+	if len(instruments):
+		for instrument in instruments:
+			spec = instrument.getSpec()
+			if isinstance(spec, GuitarSpec):
+				instType = 'Guitar'
+			elif isinstance(spec, MandolinSpec):
+				instType = 'Mandolin'
+			print ("Erin, you might like this %s %s: %s" %
+				(spec.getBuilder(), spec.getModel(), instType))
 			print ("\t%s back and sides," % (spec.getBackWood()))
 			print ("\t%s top." % (spec.getTopWood()))
-			print ("You can have it for only $%s" % (guitar.getPrice()))
+			print ("You can have it for only $%s" % (instrument.getPrice()))
 	else:
 		print("Sorry, Erin, we have nothing for you.")
+
+

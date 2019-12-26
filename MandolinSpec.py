@@ -6,6 +6,8 @@ class MandolinSpec(InstrumentSpec):
 		self.style = style
 
 	def __eq__(self, other):
+		if not isinstance(other, MandolinSpec):
+			return False
 		if not super().__eq__(other):
 			return False
 
