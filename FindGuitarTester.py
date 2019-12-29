@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
-from GuitarSpec import GuitarSpec
-from MandolinSpec import MandolinSpec
+from InstrumentSpec import InstrumentSpec
+from InstrumentType import InstrumentType
 from Inventory import Inventory
 from Builder import Builder
 from Wood import Wood
@@ -9,78 +9,75 @@ from GuitarType import Type
 from Style import Style
 
 def initializeInventory(inventory):
-	testGuitars = {
-		"11277": (3999.95, Builder.COLLINGS, "CJ",
-				Type.ACOUSTIC, Wood.INDIAN_ROSEWOOD, Wood.SITKA, 6),
-		"V95693": (1499.95, Builder.FENDER, "Stratocastor",
-				Type.ELECTRIC, Wood.ALDER, Wood.ALDER, 6),
-		"V9512": (1549.95, Builder.FENDER, "Stratocastor",
-				Type.ELECTRIC, Wood.ALDER, Wood.ALDER, 6),
-		"122784": (5495.95, Builder.MARTIN, "D-18",
-				Type.ACOUSTIC, Wood.MAHOGANY, Wood.ADIRONDACK, 6),
-		"76531": (6295.95, Builder.MARTIN, "OM-28",
-				Type.ACOUSTIC, Wood.BRAZILIAN_ROSEWOOD, Wood.ADIRONDACK, 6),
-		"70108276": (2295.95, Builder.GIBSON, "Les Paul",
-				Type.ELECTRIC, Wood.MAHOGANY, Wood.MAPLE, 6),
-		"82765501": (1890.95, Builder.GIBSON, "SG '61 Reissue",
-				Type.ELECTRIC, Wood.MAHOGANY, Wood.MAHOGANY, 6),
-		"77023": (6275.95, Builder.MARTIN, "D-28",
-				Type.ACOUSTIC, Wood.BRAZILIAN_ROSEWOOD, Wood.ADIRONDACK, 6),
-		"1092": (12995.95, Builder.RYAN, "SJ",
-				Type.ACOUSTIC, Wood.INDIAN_ROSEWOOD, Wood.CEDAR, 6),
-		"566-62": (8999.95, Builder.RYAN, "Cathedral",
-				Type.ACOUSTIC, Wood.COCOBOLO, Wood.CEDAR, 6),
-		"6 29584": (2100.95, Builder.PRS, "Dave Navarro Signature",
-				Type.ELECTRIC, Wood.MAHOGANY, Wood.MAPLE, 6)
-	}
+	properties = {}
+	properties["instrumentType"] = InstrumentType.GUITAR
+	properties["builder"] = Builder.COLLINGS
+	properties["model"] = "CJ"
+	properties["type"] = Type.ACOUSTIC
+	properties["numStrings"] = 6
+	properties["topWood"] = Wood.INDIAN_ROSEWOOD
+	properties["backWood"] = Wood.SITKA
+	inventory.addInstrument("11277", 3999.95, InstrumentSpec(properties.copy()))
 
-	testMandolins = {
-		"MT8552-A": (8939.95, Builder.RYAN, "Cathedral",
-				Type.ACOUSTIC, Wood.COCOBOLO, Wood.CEDAR, Style.A),
-		"MT8552-F": (2130.95, Builder.PRS, "Dave Navarro Signature",
-				Type.ELECTRIC, Wood.MAHOGANY, Wood.MAPLE, Style.F)
-	}
+	properties["builder"] = Builder.MARTIN
+	properties["model"] = "D-18"
+	properties["topWood"] = Wood.MAHOGANY
+	properties["backWood"] = Wood.ADIRONDACK
+	inventory.addInstrument("122784", 5495.95, InstrumentSpec(properties.copy()))
 
-	for serial in testGuitars:
-		meta = testGuitars[serial]
-		price = meta[0]
-		spec = GuitarSpec(meta[1], meta[2], meta[3], meta[4], meta[5], meta[6])
-		inventory.addInstrument(serial, price, spec)
+	properties["builder"] = Builder.FENDER
+	properties["model"] = "Stratocastor"
+	properties["type"] = Type.ELECTRIC
+	properties["topWood"] = Wood.ALDER
+	properties["backWood"] = Wood.ALDER
+	inventory.addInstrument("V95693", 1499.95, InstrumentSpec(properties.copy()))
+	inventory.addInstrument("V9512", 1549.95, InstrumentSpec(properties.copy()))
 
-	for serial in testMandolins:
-		meta = testMandolins[serial]
-		price = meta[0]
-		spec = MandolinSpec(meta[1], meta[2], meta[3], meta[4], meta[5], meta[6])
-		inventory.addInstrument(serial, price, spec)
+	properties["builder"] = Builder.GIBSON
+	properties["model"] = "Les Paul"
+	properties["topWood"] = Wood.MAPLE
+	properties["backWood"] = Wood.MAPLE
+	inventory.addInstrument("70108276", 2295.95, InstrumentSpec(properties.copy()))
+
+	properties["model"] = "SG '61 Reissue"
+	properties["topWood"] = Wood.MAHOGANY
+	properties["backWood"] = Wood.MAHOGANY
+	inventory.addInstrument("82765501", 1890.95, InstrumentSpec(properties.copy()))
+
+	properties["instrumentType"] = InstrumentType.MANDOLIN
+	properties["type"] = Type.ACOUSTIC
+	properties["model"] = "F-5G"
+	properties["backWood"] = Wood.MAPLE
+	properties["topWood"] = Wood.MAPLE
+	properties.pop("numStrings")
+	inventory.addInstrument("9019920", 5495.99, InstrumentSpec(properties.copy()))
+
+	properties["instrumentType"] = InstrumentType.BANJO
+	properties["model"] = "RB-3 Wreath"
+	properties.pop("topWood")
+	properties["numStrings"] = 5
+	inventory.addInstrument("8900231", 2945.95, InstrumentSpec(properties.copy()))
+
 
 
 if __name__ == '__main__':
 	inventory = Inventory()
 	initializeInventory(inventory)
+	print ("List of instruments:")
 	inventory.displayInstruments()
+	print ("===== End of List =====")
 
-	whatErinLikes = []
-	whatErinLikes.append( GuitarSpec(Builder.FENDER, "Stratocastor",
-                                      Type.ELECTRIC, Wood.ALDER, Wood.ALDER, 6) )
-	whatErinLikes.append( MandolinSpec(Builder.RYAN, "Cathedral",
-                                      Type.ACOUSTIC, Wood.COCOBOLO, Wood.CEDAR, Style.A) )
+	properties = {}
+	properties["builder"] = Builder.GIBSON
+	properties["backWood"] = Wood.MAPLE
+	whatBryanLikes = InstrumentSpec(properties)
 
-	instruments = []
-	for spec in whatErinLikes:
-		instruments += inventory.search(spec)
+	instruments = inventory.search(whatBryanLikes)
 
 	if len(instruments):
+		print ("Bryan, you might like these instruments:")
 		for instrument in instruments:
-			spec = instrument.getSpec()
-			if isinstance(spec, GuitarSpec):
-				instType = 'Guitar'
-			elif isinstance(spec, MandolinSpec):
-				instType = 'Mandolin'
-			print ("Erin, you might like this %s %s: %s" %
-				(spec.getBuilder(), spec.getModel(), instType))
-			print ("\t%s back and sides," % (spec.getBackWood()))
-			print ("\t%s top." % (spec.getTopWood()))
-			print ("You can have it for only $%s" % (instrument.getPrice()))
+			print (instrument)
 	else:
 		print("Sorry, Erin, we have nothing for you.")
 

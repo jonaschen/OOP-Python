@@ -1,10 +1,9 @@
 
 class Instrument:
-	def __init__(self, instrumentType, serialNumber='', price=0, spec=None):
+	def __init__(self, serialNumber='', price=0, spec=None):
 		self.serialNumber = serialNumber
 		self.price = price
 		self.spec = spec
-		self.type = instrumentType
 
 	def getSerialNumber(self):
 		return self.serialNumber
@@ -21,6 +20,6 @@ class Instrument:
 	def __str__(self):
 		string = 'serial number: %s\n' % (self.serialNumber)
 		string += 'price: %d\n' % (self.price)
-		string += '%s' % (self.getSpec())
+		string += '%s' % (self.getSpec().getProperties())
 		return string
 

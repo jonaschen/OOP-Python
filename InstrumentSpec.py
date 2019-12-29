@@ -1,47 +1,25 @@
 
 class InstrumentSpec:
-	def __init__(self, builder, model, guitarType, backWood, topWood):
-		self.builder = builder
-		self.model = model
-		self.guitarType = guitarType
-		self.backWood = backWood
-		self.topWood = topWood
+	def __init__(self, properties):
+		self.properties = properties
 
 	def __eq__(self, other):
-		if self.getBuilder() != other.getBuilder():
-			return False
-
-		if self.getModel().lower() != other.getModel().lower():
-			return False
-
-		if self.getType() != other.getType():
-			return False
-
-		if self.getBackWood() != other.getBackWood():
-			return False
-
-		if self.getTopWood() != other.getTopWood():
-			return False
+		otherProperties = other.getProperties()
+		#print (otherProperties)
+		#print (self.properties) 
+		for key in otherProperties.keys():
+			if not key in self.properties:
+				return False
+			if self.properties[key] != otherProperties[key]:
+				return False
 
 		return True
 
-	def getBuilder(self):
-		return self.builder
 
-	def getModel(self):
-		return self.model
+	def getProperty(self, propertyName):
+		return self.properties[propertyName]
 
-	def getType(self):
-		return self.guitarType
+	def getProperties(self):
+		return self.properties
 
-	def getBackWood(self):
-		return self.backWood
 
-	def getTopWood(self):
-		return self.topWood
-
-	def __str__(self):
-		string = 'Model: %s\n' % (self.getModel())
-		string += 'Type: %s\n' % (self.getType())
-		string += 'Builer: %s' % (self.getBuilder())
-		return string
