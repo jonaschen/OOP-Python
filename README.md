@@ -36,3 +36,17 @@ This example demonstrates the **Singleton Pattern**, ensuring a class has only o
 
 Usage:
 Run `Singleton-Example/TestSingleton.py` to verify that multiple instantiations return the same object.
+
+## Project Status
+
+This project is currently in active development. It contains examples for:
+- Board Game logic
+- Instrument Inventory search (Specification Pattern)
+- Singleton Pattern
+
+## Roadmap
+
+- [ ] Add more design pattern examples (e.g., Factory, Observer, Strategy).
+- [ ] Refactor existing examples to be more Pythonic.
+- [ ] Add comprehensive unit tests for all examples.
+- [ ] Improve documentation for each example.
